@@ -27,6 +27,33 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+    <script type="text/javascript">
+
+        window.onload = function() {
+            init();
+        };
+
+        function init() {
+            // Doughnut Chart Data
+            var doughnutData = [
+                {
+                    value: 30,
+                    color:"green"
+                },
+                {
+                    value : 50,
+                    color : "red"
+                }
+            ]
+
+            //Get the context of the Doughnut Chart canvas element we want to select
+            var ctx = document.getElementById("doughnutChart").getContext("2d");
+
+            // Create the Doughnut Chart
+            var mydoughnutChart = new Chart(ctx).Doughnut(doughnutData);
+        }
+    </script>
 </head>
 
 <body>
@@ -63,7 +90,8 @@
     <div class="jumbotron">
       <div class="container">
         <h1>Analyse Media Sentiment</h1>
-        <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
+          <canvas id="doughnutChart"></canvas>
+        <p>Use this webapp to analyse the sentiment of Irish media outlets.</p>
 		<!-- Search Box -->
 		<form class="input-group searchbox">
 		  <input type="text" class="form-control" name="searchterm" placeholder="Search...">
@@ -76,44 +104,43 @@
     </div>
 
     <div class="container">
-	
+      <h2 class="media-outlet">RTE.ie</h2>
       <!-- Row #1 -->
+      {{#each myHelper}}
       <div class="row results">
-        <div class="col-md-4">
-          <h2>Irish Times</h2>
-		  <p>Articles Analysed: <strong>5</strong></p>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+        <div class="col-md-6 {{polarity}}">
+            <h4><a href="{{link}}">{{title}}</a></h4>
+		    <p>Sentiment: <strong>{{score}}</strong></p>
+            <p>Comparative: <strong>{{comparative}}</strong></p>
+            <p>Positive Words: <strong>{{posWords.length}}</strong></p>
+            <p>Negative Words: <strong>{{negWords.length}}</strong></p>
         </div>
-        <div class="col-md-4">
-          <h2>Irish Independent</h2>
-		  <p>Articles Analysed: <strong>5</strong></p>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-       </div>
-        <div class="col-md-4">
-          <h2>RTE</h2>
-		  <p>Articles Analysed: <strong>5</strong></p>
-          <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-        </div>
-      </div>
-	  
-      <!-- Row #2 -->
-	  <div class="row results">
-        <div class="col-md-4">
-          <h2>Irish Examiner</h2>
-		  <p>Articles Analysed: <strong>5</strong></p>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-        </div>
-        <div class="col-md-4">
-          <h2>Irish Daily Star</h2>
-		  <p>Articles Analysed: <strong>5</strong></p>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-       </div>
-        <div class="col-md-4">
-          <h2>Evening Herald</h2>
-		  <p>Articles Analysed: <strong>5</strong></p>
-          <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+        <div class="col-md-6">
+            <canvas id="pieChart{{canvasId}}"></canvas><script> initializeCanvas(); </script>
+            <script type="text/javascript">
+                function initializeCanvas() {
+                    // Doughnut Chart Data
+                    var doughnutData = [
+                        {
+                            value: {{posWords.length}},
+                            color:"green"
+                        },
+                        {
+                            value : {{negWords.length}},
+                            color : "red"
+                        }
+                    ]
+
+                    //Get the context of the Doughnut Chart canvas element we want to select
+                    var ctx = document.getElementById("pieChart{{canvasId}}").getContext("2d");
+
+                    // Create the Doughnut Chart
+                    var mydoughnutChart = new Chart(ctx).Doughnut(doughnutData);
+                }
+            </script>
         </div>
       </div>
+      {{/each}}
       <hr>
 	  
 	  <!-- Footer -->

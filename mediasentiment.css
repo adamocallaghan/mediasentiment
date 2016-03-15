@@ -4,7 +4,32 @@ body {
   padding-bottom: 20px;
 }
 
-.results h2 {
+.media-outlet {
 	padding-bottom: 7px;
 	border-bottom: 2px solid grey;
+}
+
+.results .col-md-6 {
+    border-bottom: 1px solid lightgray;
+    height: 190px;
+    margin-top: 10px;
+}
+
+.results canvas {
+    height: 190px;
+    width: 100%;
+    background-color: lightblue;
+}
+
+.pos {
+    background-color: seagreen;
+}
+
+.neg {
+    background-color: indianred;
+}
+
+.pos h4 a,
+.neg h4 a {
+    color: white;
 }
