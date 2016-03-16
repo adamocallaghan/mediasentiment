@@ -57,93 +57,29 @@
 </head>
 
 <body>
-  {{> hello}}
-</body>
-
-<template name="hello">
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">Media Sentiment</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <form class="navbar-form navbar-right">
-            <div class="form-group">
-              <input type="text" placeholder="Email" class="form-control">
-            </div>
-            <div class="form-group">
-              <input type="password" placeholder="Password" class="form-control">
-            </div>
-            <button type="submit" class="btn btn-success">Sign in</button>
-          </form>
-        </div><!--/.navbar-collapse -->
-      </div>
-    </nav>
-
-    <!-- Main jumbotron for a primary marketing message or call to action -->
-    <div class="jumbotron">
-      <div class="container">
-        <canvas id="doughnutChart"></canvas>
-        <h1>Analyse Media Sentiment</h1>
-        <p>Use this webapp to analyse the sentiment of Irish media outlets.</p>
-		<!-- Search Box -->
-		<form class="input-group searchbox">
-		  <input type="text" class="form-control" name="searchterm" placeholder="Search...">
-		  <span class="input-group-btn">
-			<!-- <button class="btn btn-success" type="button">Go!</button> -->
-			<input class="btn btn-success" type="submit" value="Go!">
-		  </span>
-		</form><!-- /searchbox -->
-      </div>
-    </div>
-
+    {{> navbar }}
+    {{> jumbotron}}
     <div class="container">
-      <h2 class="media-outlet">RTE.ie</h2>
-      <!-- Row #1 -->
-      {{#each myHelper}}
-      <div class="row results">
-        <div class="col-md-12 {{polarity}}">
-            <canvas id="pieChart{{canvasId}}"></canvas><script> initializeCanvas(); </script>
-            <script type="text/javascript">
-                function initializeCanvas() {
-                    // Doughnut Chart Data
-                    var doughnutData = [
-                        {
-                            value: {{posWords.length}},
-                            color:"green"
-                        },
-                        {
-                            value : {{negWords.length}},
-                            color : "red"
-                        }
-                    ]
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#home">RTE.ie</a></li>
+            <li><a data-toggle="tab" href="#menu1">Irish Times</a></li>
+            <li><a data-toggle="tab" href="#menu2">Irish Independent</a></li>
+            <li><a data-toggle="tab" href="#menu3">Irish Examiner</a></li>
+        </ul>
 
-                    //Get the context of the Doughnut Chart canvas element we want to select
-                    var ctx = document.getElementById("pieChart{{canvasId}}").getContext("2d");
-                    // Create the Doughnut Chart
-                    var mydoughnutChart = new Chart(ctx).Doughnut(doughnutData);
-                }
-            </script>
-            <h4><a href="{{link}}">{{title}}</a></h4>
-		    <p>Sentiment: <strong>{{score}}</strong></p>
-            <p>Comparative: <strong>{{comparative}}</strong></p>
-            <p>Positive Words: <strong>{{posWords.length}}</strong></p>
-            <p>Negative Words: <strong>{{negWords.length}}</strong></p>
+        <div class="tab-content">
+            <div id="home" class="tab-pane fade in active">
+                {{> hello}}
+            </div>
+            <div id="menu1" class="tab-pane fade">
+                {{> irishTimes}}
+            </div>
+            <div id="menu2" class="tab-pane fade">
+                {{> irishIndependent}}
+            </div>
+            <div id="menu3" class="tab-pane fade">
+                {{> irishExaminer}}
+            </div>
         </div>
-      </div>
-      {{/each}}
-      <hr>
-	  
-	  <!-- Footer -->
-      <footer>
-        <p>&copy; 2015 Company, Inc.</p>
-      </footer>
-    </div> <!-- /container -->
-
-</template>
+    </div>
+</body>

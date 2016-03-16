@@ -1,0 +1,43 @@
+<template name="irishTimes">
+    <div class="container">
+        <h2 class="media-outlet">Irish Times</h2>
+        <!-- Row #1 -->
+        {{#each myHelper}}
+            <div class="row results">
+                <div class="col-md-12 {{polarity}}">
+                    <canvas id="pieChartIT{{canvasId}}"></canvas><script> initializeCanvas(); </script>
+                    <script type="text/javascript">
+                        function initializeCanvas() {
+                            // Doughnut Chart Data
+                            var doughnutData = [
+                                {
+                                    value: {{posWords.length}},
+                                    color:"green"
+                                },
+                                {
+                                    value : {{negWords.length}},
+                                    color : "red"
+                                }
+                            ]
+
+                            //Get the context of the Doughnut Chart canvas element we want to select
+                            var ctx = document.getElementById("pieChartIT{{canvasId}}").getContext("2d");
+                            // Create the Doughnut Chart
+                            var mydoughnutChart = new Chart(ctx).Doughnut(doughnutData);
+                        }
+                    </script>
+                    <h4><a href="{{link}}">{{title}}</a></h4>
+                    <p>Sentiment: <strong>{{score}}</strong></p>
+                    <p>Comparative: <strong>{{comparative}}</strong></p>
+                    <p>Positive Words: <strong>{{posWords.length}}</strong></p>
+                    <p>Negative Words: <strong>{{negWords.length}}</strong></p>
+                </div>
+            </div>
+        {{/each}}
+        <hr>
+
+        <!-- footer -->
+        {{> footer}}
+
+    </div> <!-- /container -->
+</template>
