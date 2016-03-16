@@ -15,21 +15,28 @@ body {
     margin-top: 10px;
 }
 
-.results canvas {
-    height: 190px;
-    width: 100%;
-    background-color: lightblue;
+.results .col-md-12 canvas {
+    float: right;
+}
+
+.results {
+    margin-bottom: 10px;
+    border-bottom: 1px solid lightgray;
 }
 
 .pos {
-    background-color: seagreen;
+    /* background-color: seagreen; */
 }
 
 .neg {
-    background-color: indianred;
+    /* background-color: indianred; */
 }
 
 .pos h4 a,
 .neg h4 a {
-    color: white;
+    /* color: white; */
+}
+
+#doughnutChart {
+    float: right;
 }

@@ -89,8 +89,8 @@
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
       <div class="container">
+        <canvas id="doughnutChart"></canvas>
         <h1>Analyse Media Sentiment</h1>
-          <canvas id="doughnutChart"></canvas>
         <p>Use this webapp to analyse the sentiment of Irish media outlets.</p>
 		<!-- Search Box -->
 		<form class="input-group searchbox">
@@ -108,14 +108,7 @@
       <!-- Row #1 -->
       {{#each myHelper}}
       <div class="row results">
-        <div class="col-md-6 {{polarity}}">
-            <h4><a href="{{link}}">{{title}}</a></h4>
-		    <p>Sentiment: <strong>{{score}}</strong></p>
-            <p>Comparative: <strong>{{comparative}}</strong></p>
-            <p>Positive Words: <strong>{{posWords.length}}</strong></p>
-            <p>Negative Words: <strong>{{negWords.length}}</strong></p>
-        </div>
-        <div class="col-md-6">
+        <div class="col-md-12 {{polarity}}">
             <canvas id="pieChart{{canvasId}}"></canvas><script> initializeCanvas(); </script>
             <script type="text/javascript">
                 function initializeCanvas() {
@@ -133,11 +126,15 @@
 
                     //Get the context of the Doughnut Chart canvas element we want to select
                     var ctx = document.getElementById("pieChart{{canvasId}}").getContext("2d");
-
                     // Create the Doughnut Chart
                     var mydoughnutChart = new Chart(ctx).Doughnut(doughnutData);
                 }
             </script>
+            <h4><a href="{{link}}">{{title}}</a></h4>
+		    <p>Sentiment: <strong>{{score}}</strong></p>
+            <p>Comparative: <strong>{{comparative}}</strong></p>
+            <p>Positive Words: <strong>{{posWords.length}}</strong></p>
+            <p>Negative Words: <strong>{{negWords.length}}</strong></p>
         </div>
       </div>
       {{/each}}

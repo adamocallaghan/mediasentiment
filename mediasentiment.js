@@ -31,7 +31,7 @@ if (Meteor.isServer) {
         console.log("Hello server!" + mySearchTerm);
 		websiteData = Scrape.feed("http://www.rte.ie/news/rss/news-headlines.xml");
         returnThis = new Array();
-		for (i=0; i<9; i++) {
+		for (i=0; i<websiteData.items.length; i++) {
             //console.log(websiteData.items.length);
 			articleTitle = websiteData.items[i].title;
 			articleLink = websiteData.items[i].link;
