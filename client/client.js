@@ -29,6 +29,28 @@ Template.irishExaminer.helpers({
     }
 });
 
+Template.jumbotron.onRendered(function () {
+    var mySearchTerm = "getting data";
+    console.log("Hello client... onRendered here!" + mySearchTerm);
+    Meteor.call('sendLogMessage', mySearchTerm, function(error, result) {
+        Session.set('myMethodResult', result);
+        console.log(result);
+    });
+    Meteor.call('irishTimes', mySearchTerm, function(error, result) {
+        Session.set('irishTimesResults', result);
+        console.log(result);
+    });
+    Meteor.call('irishIndependent', mySearchTerm, function(error, result) {
+        Session.set('irishIndependentResults', result);
+        console.log(result);
+    });
+    Meteor.call('irishExaminer', mySearchTerm, function(error, result) {
+        Session.set('irishExaminerResults', result);
+        console.log(result);
+    });
+});
+
+/*
 Template.jumbotron.events({
     'submit form': function (event) {
         event.preventDefault();
@@ -52,3 +74,4 @@ Template.jumbotron.events({
         });
     }
 });
+*/
